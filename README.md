@@ -7,6 +7,7 @@ Our build agent is based on [buildkite-agent](https://github.com/buildkite/docke
 - Add SSH keys as volume to the container
 - Fig instead of docker-compose
 - Add proxy of docker-login to build agent container
+- Mount /builds directory to avoid [the issue with docker inside docker](https://github.com/buildkite/docker-buildkite-agent/issues/3) 
 
 # Usage:
 ## Preparing host
@@ -23,30 +24,7 @@ Daemonized
 ```
 bash -c "`curl -sL https://raw.githubusercontent.com/play2lead/build-agent/master/scripts/run_daemon.sh`"
 ```
-### Manually
-```
-docker run -e BUILDKITE_AGENT_TOKEN=xxx \
-           -v /var/lib/docker:/var/lib/docker \
-           -v /var/run/docker.sock:/var/run/docker.sock \
-           -v $HOME/.ssh:/root/.ssh \
-           -v $HOME/.dockercfg:/root/.dockercfg \
-           play2lead/build-agent
-```
-boot2docker is a bit trickier, because it uses TCP and TLS:
 
-
-```
-docker run -e BUILDKITE_AGENT_TOKEN=xxx \
-           -e DOCKER_HOST="$DOCKER_HOST" \
-           -e DOCKER_CERT_PATH=/certs \
-           -e DOCKER_TLS_VERIFY=1 \
-           -v /var/lib/docker:/var/lib/docker \
-           -v ~/.boot2docker/certs/boot2docker-vm:/certs \
-           -v $HOME/.ssh:/root/.ssh \
-           -v $HOME/.dockercfg:/root/.dockercfg \
-           --net=host \
-           play2lead/build-agent
-```
 ## Hints
 To run it as a background daemon, add -d
 
