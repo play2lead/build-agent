@@ -12,7 +12,8 @@ Our build agent is based on [buildkite-agent](https://github.com/buildkite/docke
 This machine has been tested on CoreOS. Using other hosts might require extra magic.
 
 - Copy CI agent ssh key onto the machine to ~/.ssh/id_rsa
-- Login to the hostand run container in background(`-d`) as many times as you want.
+- Login to docker on container with CI credentials so that it can push
+- Login to the host and run container in background(`-d`) as many times as you want.
 ```
 docker run -e BUILDKITE_AGENT_TOKEN=xxx \
            -v /var/lib/docker:/var/lib/docker \
