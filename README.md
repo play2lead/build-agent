@@ -7,7 +7,7 @@ Our build agent is based on [buildkite-agent](https://github.com/buildkite/docke
 - Add SSH keys as volume to the container
 - Fig instead of docker-compose
 - Add proxy of docker-login to build agent container
-- Mount /builds directory to avoid [the issue with docker inside docker](https://github.com/buildkite/docker-buildkite-agent/issues/3) 
+- Mount /builds directory to avoid [the issue with docker inside docker](https://github.com/buildkite/docker-buildkite-agent/issues/3)
 
 # Usage:
 ## Preparing host
@@ -16,11 +16,13 @@ This machine has been tested on CoreOS. Using other hosts might require extra ma
 - Copy CI agent ssh key onto the machine to ~/.ssh/id_rsa
 - Login to docker on container with CI credentials so that it can push
 - Login to the host and run container in background(`-d`) as many times as you want.
-### Automagically
+
+### Attached
 ```
 bash -c "`curl -sL https://raw.githubusercontent.com/play2lead/build-agent/master/scripts/run_attached.sh`"
 ```
-Daemonized
+
+### Daemonized
 ```
 bash -c "`curl -sL https://raw.githubusercontent.com/play2lead/build-agent/master/scripts/run_daemon.sh`"
 ```
