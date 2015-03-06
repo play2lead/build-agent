@@ -17,7 +17,7 @@ This machine has been tested on CoreOS. Using other hosts might require extra ma
 docker run -e BUILDKITE_AGENT_TOKEN=xxx \
            -v /var/lib/docker:/var/lib/docker \
            -v /var/run/docker.sock:/var/run/docker.sock \
-           -v $HOME/.ssh:/root.ssh \
+           -v $HOME/.ssh:/root/.ssh \
            play2lead/build-agent
 ```
 boot2docker is a bit trickier, because it uses TCP and TLS:
@@ -30,7 +30,7 @@ docker run -e BUILDKITE_AGENT_TOKEN=xxx \
            -e DOCKER_TLS_VERIFY=1 \
            -v /var/lib/docker:/var/lib/docker \
            -v ~/.boot2docker/certs/boot2docker-vm:/certs \
-           -v $HOME/.ssh:/root.ssh \
+           -v $HOME/.ssh:/root/.ssh \
            --net=host \
            play2lead/build-agent
 ```
