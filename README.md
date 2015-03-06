@@ -15,6 +15,15 @@ This machine has been tested on CoreOS. Using other hosts might require extra ma
 - Copy CI agent ssh key onto the machine to ~/.ssh/id_rsa
 - Login to docker on container with CI credentials so that it can push
 - Login to the host and run container in background(`-d`) as many times as you want.
+### Automagically
+```
+bash -c "`curl -sL https://raw.githubusercontent.com/play2lead/build-agent/master/scripts/run_attached.sh`"
+```
+Daemonized
+```
+bash -c "`curl -sL https://raw.githubusercontent.com/play2lead/build-agent/master/scripts/run_daemon.sh`"
+```
+### Manually
 ```
 docker run -e BUILDKITE_AGENT_TOKEN=xxx \
            -v /var/lib/docker:/var/lib/docker \
