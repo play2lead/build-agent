@@ -4,7 +4,6 @@ Our build agent is based on [buildkite-agent](https://github.com/buildkite/docke
 ## Notable changes
 - Added perl for magic git-timestamp-trick
 - Install docker so that we can user docker inside docker
-- Updated README with --privileged mode run
 - Add SSH keys as volume to the container
 - Fig instead of docker-compose
 
