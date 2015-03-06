@@ -6,6 +6,7 @@ Our build agent is based on [buildkite-agent](https://github.com/buildkite/docke
 - Install docker so that we can user docker inside docker
 - Add SSH keys as volume to the container
 - Fig instead of docker-compose
+- Add proxy of docker-login to build agent container
 
 # Usage:
 ## Preparing host
@@ -19,6 +20,7 @@ docker run -e BUILDKITE_AGENT_TOKEN=xxx \
            -v /var/lib/docker:/var/lib/docker \
            -v /var/run/docker.sock:/var/run/docker.sock \
            -v $HOME/.ssh:/root/.ssh \
+           -v $HOME/.dockercfg:/root/.dockercfg \
            play2lead/build-agent
 ```
 boot2docker is a bit trickier, because it uses TCP and TLS:
@@ -32,6 +34,7 @@ docker run -e BUILDKITE_AGENT_TOKEN=xxx \
            -v /var/lib/docker:/var/lib/docker \
            -v ~/.boot2docker/certs/boot2docker-vm:/certs \
            -v $HOME/.ssh:/root/.ssh \
+           -v $HOME/.dockercfg:/root/.dockercfg \
            --net=host \
            play2lead/build-agent
 ```
