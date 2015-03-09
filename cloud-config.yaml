@@ -1,0 +1,34 @@
+#cloud-config
+
+coreos:
+  etcd:
+    # generate a new token for each unique cluster from https://discovery.etcd.io/new?size=1
+    # specify the intial size of your cluster with ?size=X
+    discovery: https://discovery.etcd.io/<TOKEN>
+    # multi-region and multi-cloud deployments need to use $public_ipv4
+    addr: $private_ipv4:4001
+    peer-addr: $private_ipv4:7001
+  units:
+    - name: etcd.service
+      command: start
+    - name: fleet.service
+      command: start
+    # Attached storage mount to avoid space overfow with default tiny GCE drive
+    - name: format-ephemeral.service
+      command: start
+      content: |
+        [Unit]
+        Description=Formats the ephemeral drive
+        [Service]
+        Type=oneshot
+        RemainAfterExit=yes
+        ExecStart=/usr/sbin/wipefs -f /dev/disk/by-id/google-<DISK-NAME>
+        ExecStart=/usr/sbin/mkfs.btrfs -f /dev/disk/by-id/google-<DISK-NAME>
+    - name: var-lib-docker.mount
+      command: start
+      content: |
+        Before=docker.service
+        [Mount]
+        What=/dev/disk/by-id/google-<DISK-NAME>
+        Where=/var/lib/docker
+        Type=btrfs
