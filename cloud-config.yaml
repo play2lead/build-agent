@@ -32,3 +32,21 @@ coreos:
         What=/dev/disk/by-id/google-<DISK-NAME>
         Where=/var/lib/docker
         Type=btrfs
+    - name: format-ephemeral-builds.service
+      command: start
+      content: |
+        [Unit]
+        Description=Formats the builds drive
+        [Service]
+        Type=oneshot
+        RemainAfterExit=yes
+        ExecStart=/usr/sbin/wipefs -f /dev/disk/by-id/google-builds
+        ExecStart=/usr/sbin/mkfs.btrfs -f /dev/disk/by-id/google-builds
+    - name: builds.mount
+      command: start
+      content: |
+        Before=docker.service
+        [Mount]
+        What=/dev/disk/by-id/google-builds
+        Where=/builds
+        Type=btrfs
