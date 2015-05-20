@@ -5,7 +5,6 @@ Our build agent is based on [buildkite-agent](https://github.com/buildkite/docke
 - Added perl for magic git-timestamp-trick
 - Install docker so that we can user docker inside docker
 - Add SSH keys as volume to the container
-- Fig instead of docker-compose
 - Add proxy of docker-login to build agent container
 - Mount /builds directory to avoid [the issue with docker inside docker](https://github.com/buildkite/docker-buildkite-agent/issues/3)
 
