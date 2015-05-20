@@ -22,14 +22,14 @@ coreos:
         [Service]
         Type=oneshot
         RemainAfterExit=yes
-        ExecStart=/usr/sbin/wipefs -f /dev/disk/by-id/google-<DISK-NAME>
-        ExecStart=/usr/sbin/mkfs.btrfs -f /dev/disk/by-id/google-<DISK-NAME>
+        ExecStart=/usr/sbin/wipefs -f /dev/disk/by-id/google-builds
+        ExecStart=/usr/sbin/mkfs.btrfs -f /dev/disk/by-id/google-builds
     - name: var-lib-docker.mount
       command: start
       content: |
         Before=docker.service
         [Mount]
-        What=/dev/disk/by-id/google-<DISK-NAME>
+        What=/dev/disk/by-id/google-disk-1
         Where=/var/lib/docker
         Type=btrfs
     - name: format-ephemeral-builds.service
@@ -42,11 +42,11 @@ coreos:
         RemainAfterExit=yes
         ExecStart=/usr/sbin/wipefs -f /dev/disk/by-id/google-builds
         ExecStart=/usr/sbin/mkfs.btrfs -f /dev/disk/by-id/google-builds
-    - name: builds.mount
+    - name: buildkite.mount
       command: start
       content: |
         Before=docker.service
         [Mount]
         What=/dev/disk/by-id/google-builds
-        Where=/builds
+        Where=/buildkite
         Type=btrfs
