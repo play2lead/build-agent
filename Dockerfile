@@ -1,4 +1,4 @@
-FROM buildkite/agent
+FROM buildkite/agent:ubuntu
 RUN apt-get update && \
     apt-get install perl
 RUN curl -sSL https://get.docker.com/ubuntu/ | sudo sh
