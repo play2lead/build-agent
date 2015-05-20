@@ -5,5 +5,8 @@ RUN curl -sSL https://get.docker.com/ubuntu/ | sudo sh
 # Cleanup
 RUN apt-get clean autoclean apt-get autoremove -y
 RUN rm -rf /var/lib/{apt,dpkg,cache,log}/
-# Replace fig with docker-compose
-RUN sed -i.bak s/fig/docker-compose/g /etc/buildkite-agent/bootstrap.sh
+# Install sti
+RUN curl -LO https://github.com/openshift/source-to-image/releases/download/v0.5.1/source-to-image-v0.5.1-f2a6728-linux-amd64.tar.gz
+RUN tar xfv source-to-image-v0.5.1-f2a6728-linux-amd64.tar.gz
+RUN mv sti /usr/local/bin/
+RUN chmod +x /usr/local/bin/sti
