@@ -6,11 +6,12 @@ set -e
 
 if [[ ! -z "${BUILDKITE_DOCKER_COMPOSE_CONTAINER:-}" ]] && [[ "$BUILDKITE_DOCKER_COMPOSE_CONTAINER" != "" ]]; then
   # If user specified docker compose file we need to generate
-  if [[ ! -f $BUILDKITE_DOCKER_COMPOSE_FILE ]]; then
-    TEMPLATE_FILE="$BUILDKITE_DOCKER_COMPOSE_FILE.template"
+  CUSTOM_DOCKER_COMPOSE = "$BUILDKITE_BUILD_CHECKOUT_PATH/$BUILDKITE_DOCKER_COMPOSE_FILE"
+  if [[ ! -f $CUSTOM_DOCKER_COMPOSE ]]; then
+    TEMPLATE_FILE="$CUSTOM_DOCKER_COMPOSE.template"
     if [[ -f $TEMPLATE_FILE ]]; then
-      echo -e "$(eval "echo -e \"`<$TEMPLATE_FILE`\"")" >> $BUILDKITE_DOCKER_COMPOSE_FILE
-      exit 0
+      echo -e "$(eval "echo -e \"`<$TEMPLATE_FILE`\"")" >> $CUSTOM_DOCKER_COMPOSE
+      echo "generated template to $CUSTOM_DOCKER_COMPOSE"
     else
       echo "template file $TEMPLATE_FILE not found"
       exit 1
