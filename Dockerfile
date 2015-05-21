@@ -10,3 +10,6 @@ RUN curl -LO https://github.com/openshift/source-to-image/releases/download/v0.5
 RUN tar xfv source-to-image-v0.5.1-f2a6728-linux-amd64.tar.gz
 RUN mv sti /usr/local/bin/
 RUN chmod +x /usr/local/bin/sti
+
+# Add hooks
+ADD hooks/ /buildkite/hooks
