@@ -4,7 +4,7 @@
 
 set -e
 
-if [[ ! -z "${BUILDKITE_DOCKER_COMPOSE_CONTAINER:-}" ]] && [[ "$BUILDKITE_DOCKER_COMPOSE_CONTAINER" != "" ]]; then
+if [[ ! -z "${BUILDKITE_DOCKER_COMPOSE_CONTAINER:-}" ]] && [[ "$BUILDKITE_DOCKER_COMPOSE_CONTAINER" != "" ]] && [[ ! -z "${BUILDKITE_DOCKER_COMPOSE_FILE:-}" ]]; then
   # If user specified docker compose file we need to generate
   CUSTOM_DOCKER_COMPOSE="$BUILDKITE_BUILD_CHECKOUT_PATH/$BUILDKITE_DOCKER_COMPOSE_FILE"
   if [[ ! -f $CUSTOM_DOCKER_COMPOSE ]]; then
